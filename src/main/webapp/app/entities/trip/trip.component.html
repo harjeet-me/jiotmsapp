@@ -1,0 +1,167 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="jiotmsappApp.trip.home.title">Trips</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-trip" [routerLink]="['/trip/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="jiotmsappApp.trip.home.createLabel">
+            Create a new Trip
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="trips?.length === 0">
+        <span jhiTranslate="jiotmsappApp.trip.home.notFound">No trips found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="trips && trips.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="customTripNumber"><span jhiTranslate="jiotmsappApp.trip.customTripNumber">Custom Trip Number</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="description"><span jhiTranslate="jiotmsappApp.trip.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="tripType"><span jhiTranslate="jiotmsappApp.trip.tripType">Trip Type</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="shipmentNumber"><span jhiTranslate="jiotmsappApp.trip.shipmentNumber">Shipment Number</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="orderNumber"><span jhiTranslate="jiotmsappApp.trip.orderNumber">Order Number</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="bol"><span jhiTranslate="jiotmsappApp.trip.bol">Bol</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="pickup"><span jhiTranslate="jiotmsappApp.trip.pickup">Pickup</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="drop"><span jhiTranslate="jiotmsappApp.trip.drop">Drop</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="currentLocation"><span jhiTranslate="jiotmsappApp.trip.currentLocation">Current Location</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="status"><span jhiTranslate="jiotmsappApp.trip.status">Status</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="detention"><span jhiTranslate="jiotmsappApp.trip.detention">Detention</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="chasisInTime"><span jhiTranslate="jiotmsappApp.trip.chasisInTime">Chasis In Time</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="orderDocument"><span jhiTranslate="jiotmsappApp.trip.orderDocument">Order Document</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="pod"><span jhiTranslate="jiotmsappApp.trip.pod">Pod</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="hazmat"><span jhiTranslate="jiotmsappApp.trip.hazmat">Hazmat</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="refrigerated"><span jhiTranslate="jiotmsappApp.trip.refrigerated">Refrigerated</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="liftgate"><span jhiTranslate="jiotmsappApp.trip.liftgate">Liftgate</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="recievedBy"><span jhiTranslate="jiotmsappApp.trip.recievedBy">Recieved By</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="coveredBy"><span jhiTranslate="jiotmsappApp.trip.coveredBy">Covered By</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="loadType"><span jhiTranslate="jiotmsappApp.trip.loadType">Load Type</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="containerSize"><span jhiTranslate="jiotmsappApp.trip.containerSize">Container Size</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="numbersOfContainer"><span jhiTranslate="jiotmsappApp.trip.numbersOfContainer">Numbers Of Container</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="comments"><span jhiTranslate="jiotmsappApp.trip.comments">Comments</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="autoGenerateInvoice"><span jhiTranslate="jiotmsappApp.trip.autoGenerateInvoice">Auto Generate Invoice</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="createdOn"><span jhiTranslate="jiotmsappApp.trip.createdOn">Created On</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="createdBy"><span jhiTranslate="jiotmsappApp.trip.createdBy">Created By</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="updatedOn"><span jhiTranslate="jiotmsappApp.trip.updatedOn">Updated On</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="updatedBy"><span jhiTranslate="jiotmsappApp.trip.updatedBy">Updated By</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="pickupLocation.address"><span jhiTranslate="jiotmsappApp.trip.pickupLocation">Pickup Location</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="dropLocation.address"><span jhiTranslate="jiotmsappApp.trip.dropLocation">Drop Location</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="customer.email"><span jhiTranslate="jiotmsappApp.trip.customer">Customer</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="driver.firstName"><span jhiTranslate="jiotmsappApp.trip.driver">Driver</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="equipment.id"><span jhiTranslate="jiotmsappApp.trip.equipment">Equipment</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="carrier.company"><span jhiTranslate="jiotmsappApp.trip.carrier">Carrier</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trip of trips ;trackBy: trackId">
+                    <td><a [routerLink]="['/trip', trip.id, 'view']">{{ trip.id }}</a></td>
+                    <td>{{ trip.customTripNumber }}</td>
+                    <td>{{ trip.description }}</td>
+                    <td jhiTranslate="{{ 'jiotmsappApp.TripType.' + trip.tripType }}">{{ trip.tripType }}</td>
+                    <td>{{ trip.shipmentNumber }}</td>
+                    <td>{{ trip.orderNumber }}</td>
+                    <td>{{ trip.bol }}</td>
+                    <td>{{ trip.pickup | date:'mediumDate' }}</td>
+                    <td>{{ trip.drop | date:'mediumDate' }}</td>
+                    <td>{{ trip.currentLocation }}</td>
+                    <td jhiTranslate="{{ 'jiotmsappApp.StatusEnum.' + trip.status }}">{{ trip.status }}</td>
+                    <td>{{ trip.detention }}</td>
+                    <td>{{ trip.chasisInTime | date:'medium' }}</td>
+                    <td>
+                        <a *ngIf="trip.orderDocument" (click)="openFile(trip.orderDocumentContentType, trip.orderDocument)" jhiTranslate="entity.action.open">open</a>
+                        <span *ngIf="trip.orderDocument">{{ trip.orderDocumentContentType }}, {{ byteSize(trip.orderDocument) }}</span>
+                    </td>
+                    <td>
+                        <a *ngIf="trip.pod" (click)="openFile(trip.podContentType, trip.pod)" jhiTranslate="entity.action.open">open</a>
+                        <span *ngIf="trip.pod">{{ trip.podContentType }}, {{ byteSize(trip.pod) }}</span>
+                    </td>
+                    <td>{{ trip.hazmat }}</td>
+                    <td>{{ trip.refrigerated }}</td>
+                    <td>{{ trip.liftgate }}</td>
+                    <td>{{ trip.recievedBy }}</td>
+                    <td jhiTranslate="{{ 'jiotmsappApp.COVEREDBY.' + trip.coveredBy }}">{{ trip.coveredBy }}</td>
+                    <td jhiTranslate="{{ 'jiotmsappApp.LoadType.' + trip.loadType }}">{{ trip.loadType }}</td>
+                    <td jhiTranslate="{{ 'jiotmsappApp.SizeEnum.' + trip.containerSize }}">{{ trip.containerSize }}</td>
+                    <td>{{ trip.numbersOfContainer }}</td>
+                    <td>{{ trip.comments }}</td>
+                    <td>{{ trip.autoGenerateInvoice }}</td>
+                    <td>{{ trip.createdOn | date:'medium' }}</td>
+                    <td>{{ trip.createdBy }}</td>
+                    <td>{{ trip.updatedOn | date:'medium' }}</td>
+                    <td>{{ trip.updatedBy }}</td>
+                    <td>
+                        <div *ngIf="trip.pickupLocation">
+                            <a [routerLink]="['/location', trip.pickupLocation?.id, 'view']" >{{ trip.pickupLocation?.address }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="trip.dropLocation">
+                            <a [routerLink]="['/location', trip.dropLocation?.id, 'view']" >{{ trip.dropLocation?.address }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="trip.customer">
+                            <a [routerLink]="['/customer', trip.customer?.id, 'view']" >{{ trip.customer?.email }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="trip.driver">
+                            <a [routerLink]="['/driver', trip.driver?.id, 'view']" >{{ trip.driver?.firstName }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="trip.equipment">
+                            <a [routerLink]="['/equipment', trip.equipment?.id, 'view']" >{{ trip.equipment?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="trip.carrier">
+                            <a [routerLink]="['/carrier', trip.carrier?.id, 'view']" >{{ trip.carrier?.company }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/trip', trip.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/trip', trip.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(trip)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="trips && trips.length > 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
+        </div>
+    </div>
+</div>

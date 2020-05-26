@@ -1,0 +1,9 @@
+{
+  "jiotmsappApp": {
+    "TripType": {
+      "null": "",
+      "PICKUP": "PICKUP",
+      "RETURN": "RETURN"
+    }
+  }
+}

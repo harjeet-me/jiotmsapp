@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="transactionsRecord">
+            <h2><span jhiTranslate="jiotmsappApp.transactionsRecord.detail.title">Transactions Record</span> {{ transactionsRecord.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jiotmsappApp.transactionsRecord.txType">Tx Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'jiotmsappApp.TransactionType.' + transactionsRecord.txType }}">{{ transactionsRecord.txType }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.transactionsRecord.description">Description</span></dt>
+                <dd>
+                    <span>{{ transactionsRecord.description }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.transactionsRecord.txAmmount">Tx Ammount</span></dt>
+                <dd>
+                    <span>{{ transactionsRecord.txAmmount }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.transactionsRecord.createdOn">Created On</span></dt>
+                <dd>
+                    <span>{{ transactionsRecord.createdOn }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.transactionsRecord.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{ transactionsRecord.createdBy }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.transactionsRecord.updatedOn">Updated On</span></dt>
+                <dd>
+                    <span>{{ transactionsRecord.updatedOn }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.transactionsRecord.updatedBy">Updated By</span></dt>
+                <dd>
+                    <span>{{ transactionsRecord.updatedBy }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.transactionsRecord.customer">Customer</span></dt>
+                <dd>
+                    <div *ngIf="transactionsRecord.customer">
+                        <a [routerLink]="['/customer', transactionsRecord.customer?.id, 'view']">{{ transactionsRecord.customer?.company }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.transactionsRecord.account">Account</span></dt>
+                <dd>
+                    <div *ngIf="transactionsRecord.account">
+                        <a [routerLink]="['/accounts', transactionsRecord.account?.id, 'view']">{{ transactionsRecord.account?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/transactions-record', transactionsRecord.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

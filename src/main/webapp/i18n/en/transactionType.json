@@ -1,0 +1,12 @@
+{
+  "jiotmsappApp": {
+    "TransactionType": {
+      "null": "",
+      "CREDIT": "CREDIT",
+      "INVOICE": "INVOICE",
+      "PAYMENT": "PAYMENT",
+      "REFUND": "REFUND",
+      "ADJUSTMENT": "ADJUSTMENT"
+    }
+  }
+}

@@ -1,0 +1,180 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="trip">
+            <h2><span jhiTranslate="jiotmsappApp.trip.detail.title">Trip</span> {{ trip.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jiotmsappApp.trip.customTripNumber">Custom Trip Number</span></dt>
+                <dd>
+                    <span>{{ trip.customTripNumber }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.description">Description</span></dt>
+                <dd>
+                    <span>{{ trip.description }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.tripType">Trip Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'jiotmsappApp.TripType.' + trip.tripType }}">{{ trip.tripType }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.shipmentNumber">Shipment Number</span></dt>
+                <dd>
+                    <span>{{ trip.shipmentNumber }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.orderNumber">Order Number</span></dt>
+                <dd>
+                    <span>{{ trip.orderNumber }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.bol">Bol</span></dt>
+                <dd>
+                    <span>{{ trip.bol }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.pickup">Pickup</span></dt>
+                <dd>
+                    <span>{{ trip.pickup }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.drop">Drop</span></dt>
+                <dd>
+                    <span>{{ trip.drop }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.currentLocation">Current Location</span></dt>
+                <dd>
+                    <span>{{ trip.currentLocation }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.status">Status</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'jiotmsappApp.StatusEnum.' + trip.status }}">{{ trip.status }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.detention">Detention</span></dt>
+                <dd>
+                    <span>{{ trip.detention }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.chasisInTime">Chasis In Time</span></dt>
+                <dd>
+                    <span>{{ trip.chasisInTime }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.orderDocument">Order Document</span></dt>
+                <dd>
+                    <div *ngIf="trip.orderDocument">
+                        <a (click)="openFile(trip.orderDocumentContentType, trip.orderDocument)" jhiTranslate="entity.action.open">open</a>
+                        {{ trip.orderDocumentContentType }}, {{ byteSize(trip.orderDocument) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.pod">Pod</span></dt>
+                <dd>
+                    <div *ngIf="trip.pod">
+                        <a (click)="openFile(trip.podContentType, trip.pod)" jhiTranslate="entity.action.open">open</a>
+                        {{ trip.podContentType }}, {{ byteSize(trip.pod) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.hazmat">Hazmat</span></dt>
+                <dd>
+                    <span>{{ trip.hazmat }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.refrigerated">Refrigerated</span></dt>
+                <dd>
+                    <span>{{ trip.refrigerated }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.liftgate">Liftgate</span></dt>
+                <dd>
+                    <span>{{ trip.liftgate }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.recievedBy">Recieved By</span></dt>
+                <dd>
+                    <span>{{ trip.recievedBy }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.coveredBy">Covered By</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'jiotmsappApp.COVEREDBY.' + trip.coveredBy }}">{{ trip.coveredBy }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.loadType">Load Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'jiotmsappApp.LoadType.' + trip.loadType }}">{{ trip.loadType }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.containerSize">Container Size</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'jiotmsappApp.SizeEnum.' + trip.containerSize }}">{{ trip.containerSize }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.numbersOfContainer">Numbers Of Container</span></dt>
+                <dd>
+                    <span>{{ trip.numbersOfContainer }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.comments">Comments</span></dt>
+                <dd>
+                    <span>{{ trip.comments }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.autoGenerateInvoice">Auto Generate Invoice</span></dt>
+                <dd>
+                    <span>{{ trip.autoGenerateInvoice }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.createdOn">Created On</span></dt>
+                <dd>
+                    <span>{{ trip.createdOn }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.createdBy">Created By</span></dt>
+                <dd>
+                    <span>{{ trip.createdBy }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.updatedOn">Updated On</span></dt>
+                <dd>
+                    <span>{{ trip.updatedOn }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.updatedBy">Updated By</span></dt>
+                <dd>
+                    <span>{{ trip.updatedBy }}</span>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.pickupLocation">Pickup Location</span></dt>
+                <dd>
+                    <div *ngIf="trip.pickupLocation">
+                        <a [routerLink]="['/location', trip.pickupLocation?.id, 'view']">{{ trip.pickupLocation?.address }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.dropLocation">Drop Location</span></dt>
+                <dd>
+                    <div *ngIf="trip.dropLocation">
+                        <a [routerLink]="['/location', trip.dropLocation?.id, 'view']">{{ trip.dropLocation?.address }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.customer">Customer</span></dt>
+                <dd>
+                    <div *ngIf="trip.customer">
+                        <a [routerLink]="['/customer', trip.customer?.id, 'view']">{{ trip.customer?.email }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.driver">Driver</span></dt>
+                <dd>
+                    <div *ngIf="trip.driver">
+                        <a [routerLink]="['/driver', trip.driver?.id, 'view']">{{ trip.driver?.firstName }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.equipment">Equipment</span></dt>
+                <dd>
+                    <div *ngIf="trip.equipment">
+                        <a [routerLink]="['/equipment', trip.equipment?.id, 'view']">{{ trip.equipment?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jiotmsappApp.trip.carrier">Carrier</span></dt>
+                <dd>
+                    <div *ngIf="trip.carrier">
+                        <a [routerLink]="['/carrier', trip.carrier?.id, 'view']">{{ trip.carrier?.company }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/trip', trip.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
