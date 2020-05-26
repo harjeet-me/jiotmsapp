@@ -14,7 +14,44 @@
     <property name="uuidType" value="varchar(36)" dbms="h2, mysql, mariadb"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064002_added_entity_CompanyProfile.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064102_added_entity_Customer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064202_added_entity_Trip.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064302_added_entity_Invoice.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064402_added_entity_Payment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064502_added_entity_InvoiceReport.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064602_added_entity_InvoiceItem.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064702_added_entity_ProductItem.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064802_added_entity_Accounts.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064902_added_entity_TransactionsRecord.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065002_added_entity_Container.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065102_added_entity_Equipment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065202_added_entity_Insurance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065302_added_entity_Contact.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065402_added_entity_Driver.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065502_added_entity_Carrier.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065602_added_entity_Location.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065702_added_entity_Email.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065802_added_entity_InvoiceHistory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065902_added_entity_AccountHistory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526070002_added_entity_Report.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526070102_added_entity_FileSystem.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20200526064102_added_entity_constraints_Customer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064202_added_entity_constraints_Trip.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064302_added_entity_constraints_Invoice.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064402_added_entity_constraints_Payment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064502_added_entity_constraints_InvoiceReport.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064602_added_entity_constraints_InvoiceItem.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064802_added_entity_constraints_Accounts.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526064902_added_entity_constraints_TransactionsRecord.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065002_added_entity_constraints_Container.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065102_added_entity_constraints_Equipment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065302_added_entity_constraints_Contact.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065502_added_entity_constraints_Carrier.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065702_added_entity_constraints_Email.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526065802_added_entity_constraints_InvoiceHistory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20200526070102_added_entity_constraints_FileSystem.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>
