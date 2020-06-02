@@ -31,7 +31,6 @@
                     <th scope="col" ><span jhiTranslate="jiotmsappApp.accounts.createdBy">Created By</span></th>
                     <th scope="col" ><span jhiTranslate="jiotmsappApp.accounts.updatedOn">Updated On</span></th>
                     <th scope="col" ><span jhiTranslate="jiotmsappApp.accounts.updatedBy">Updated By</span></th>
-                    <th scope="col" ><span jhiTranslate="jiotmsappApp.accounts.customer">Customer</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -46,11 +45,6 @@
                     <td>{{ accounts.createdBy }}</td>
                     <td>{{ accounts.updatedOn | date:'medium' }}</td>
                     <td>{{ accounts.updatedBy }}</td>
-                    <td>
-                        <div *ngIf="accounts.customer">
-                            <a [routerLink]="['/customer', accounts.customer?.id, 'view']" >{{ accounts.customer?.company }}</a>
-                        </div>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

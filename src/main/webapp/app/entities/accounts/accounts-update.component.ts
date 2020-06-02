@@ -4,14 +4,11 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { IAccounts, Accounts } from 'app/shared/model/accounts.model';
 import { AccountsService } from './accounts.service';
-import { ICustomer } from 'app/shared/model/customer.model';
-import { CustomerService } from 'app/entities/customer/customer.service';
 
 @Component({
   selector: 'jhi-accounts-update',
@@ -19,7 +16,6 @@ import { CustomerService } from 'app/entities/customer/customer.service';
 })
 export class AccountsUpdateComponent implements OnInit {
   isSaving = false;
-  customers: ICustomer[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -31,15 +27,9 @@ export class AccountsUpdateComponent implements OnInit {
     createdBy: [],
     updatedOn: [],
     updatedBy: [],
-    customer: [],
   });
 
-  constructor(
-    protected accountsService: AccountsService,
-    protected customerService: CustomerService,
-    protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
-  ) {}
+  constructor(protected accountsService: AccountsService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ accounts }) => {
@@ -50,28 +40,6 @@ export class AccountsUpdateComponent implements OnInit {
       }
 
       this.updateForm(accounts);
-
-      this.customerService
-        .query({ filter: 'accounts-is-null' })
-        .pipe(
-          map((res: HttpResponse<ICustomer[]>) => {
-            return res.body || [];
-          })
-        )
-        .subscribe((resBody: ICustomer[]) => {
-          if (!accounts.customer || !accounts.customer.id) {
-            this.customers = resBody;
-          } else {
-            this.customerService
-              .find(accounts.customer.id)
-              .pipe(
-                map((subRes: HttpResponse<ICustomer>) => {
-                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
-                })
-              )
-              .subscribe((concatRes: ICustomer[]) => (this.customers = concatRes));
-          }
-        });
     });
   }
 
@@ -86,7 +54,6 @@ export class AccountsUpdateComponent implements OnInit {
       createdBy: accounts.createdBy,
       updatedOn: accounts.updatedOn ? accounts.updatedOn.format(DATE_TIME_FORMAT) : null,
       updatedBy: accounts.updatedBy,
-      customer: accounts.customer,
     });
   }
 
@@ -116,7 +83,6 @@ export class AccountsUpdateComponent implements OnInit {
       createdBy: this.editForm.get(['createdBy'])!.value,
       updatedOn: this.editForm.get(['updatedOn'])!.value ? moment(this.editForm.get(['updatedOn'])!.value, DATE_TIME_FORMAT) : undefined,
       updatedBy: this.editForm.get(['updatedBy'])!.value,
-      customer: this.editForm.get(['customer'])!.value,
     };
   }
 
@@ -134,9 +100,5 @@ export class AccountsUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
-  }
-
-  trackById(index: number, item: ICustomer): any {
-    return item.id;
   }
 }

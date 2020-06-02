@@ -31,7 +31,6 @@
                     <th scope="col"  jhiSortBy="updatedOn"><span jhiTranslate="jiotmsappApp.transactionsRecord.updatedOn">Updated On</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="updatedBy"><span jhiTranslate="jiotmsappApp.transactionsRecord.updatedBy">Updated By</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="customer.company"><span jhiTranslate="jiotmsappApp.transactionsRecord.customer">Customer</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="account.id"><span jhiTranslate="jiotmsappApp.transactionsRecord.account">Account</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -48,11 +47,6 @@
                     <td>
                         <div *ngIf="transactionsRecord.customer">
                             <a [routerLink]="['/customer', transactionsRecord.customer?.id, 'view']" >{{ transactionsRecord.customer?.company }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="transactionsRecord.account">
-                            <a [routerLink]="['/accounts', transactionsRecord.account?.id, 'view']" >{{ transactionsRecord.account?.id }}</a>
                         </div>
                     </td>
                     <td class="text-right">

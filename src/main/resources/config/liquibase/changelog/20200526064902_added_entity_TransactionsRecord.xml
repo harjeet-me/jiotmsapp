@@ -40,9 +40,6 @@
             <column name="customer_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="account_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="transactions_record" columnName="created_on" columnDataType="datetime"/>

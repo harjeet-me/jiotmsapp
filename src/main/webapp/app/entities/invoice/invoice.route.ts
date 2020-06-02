@@ -62,6 +62,18 @@ export const invoiceRoute: Routes = [
     canActivate: [UserRouteAccessService],
   },
   {
+    path: ':id/sendEmail',
+    component: InvoiceDetailComponent,
+    resolve: {
+      invoice: InvoiceResolve,
+    },
+    data: {
+      authorities: [Authority.USER],
+      pageTitle: 'jiotmsappApp.invoice.home.title',
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
     path: 'new',
     component: InvoiceUpdateComponent,
     resolve: {

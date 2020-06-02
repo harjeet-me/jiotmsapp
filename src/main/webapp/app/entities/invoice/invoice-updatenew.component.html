@@ -16,7 +16,7 @@
 
 					</div>
 
-				
+					<div class="col-sm-6"> Hello   </div>
 
 				</div>
 
@@ -41,7 +41,7 @@
 								customerOption.company }}</option>
 						</select> -->
 
-								<input size="50" [(ngModel)]="customerName" placeholder="Select Customer"
+								<input size="50" [(ngModel)]="customerName"
 									[ngModelOptions]="{standalone: true}" class="form-control"
 									type="input" list="customers;" temp=""
 									onmouseover="this.temp=this.value;this.value='';"
@@ -57,16 +57,17 @@
 								</datalist>
 
 							</div>
+							</br>
 
 
 
 							<div class="form-group">
 								<label class="form-control-label"
-									jhiTranslate="jiotmsappApp.customer.address" 
-									for="field_address">Selected Address</label>
+									jhiTranslate="jiotmsappApp.customer.address"
+									for="field_address">Address</label>
 
 
-								<textarea placeholder="Selected Customer Address" type="text" class="form-control" cols="50" rows="4" required="required"
+								<textarea type="text" class="form-control" cols="50" rows="4"
 									name="customerInfo" id="field_customerInfo"
 									formControlName="customerInfo"> </textarea>
 
@@ -86,7 +87,7 @@
 								<label class="form-control-label"
 									jhiTranslate="jiotmsappApp.invoice.invoiceNo"
 									for="field_invoiceNo">Invoice No</label> <input type="text"
-									class="form-control" name="invoiceNo" 
+									class="form-control" name="invoiceNo" value="{{maxId}}"
 									id="field_invoiceNo" formControlName="invoiceNo" />
 							</div>
 
@@ -98,7 +99,7 @@
 								<div class="input-group">
 									<input required="required" id="field_invoiceDate" type="text"
 										class="form-control" name="invoiceDate" ngbDatepicker
-										#invoiceDateDp="ngbDatepicker"  formControlName="invoiceDate" />
+										#invoiceDateDp="ngbDatepicker" formControlName="invoiceDate" />
 									<span class="input-group-append">
 										<button type="button" class="btn btn-secondary"
 											(click)="invoiceDateDp.toggle()">
@@ -132,7 +133,7 @@
 									jhiTranslate="jiotmsappApp.invoice.status"
 									for="field_status">Status</label> <select class="form-control"
 									name="status" formControlName="status" id="field_status">
-									<option selected="selected" value="DRAFT">{{
+									<option value="DRAFT">{{
 										'jiotmsappApp.InvoiceStatus.DRAFT' | translate }}</option>
 									<option value="GENERATED">{{
 										'jiotmsappApp.InvoiceStatus.GENERATED' | translate }}</option>
@@ -159,7 +160,7 @@
 
 				<div class="row">
 					<div class=" card col-sm-6">
-						<div class="card-header">References</div>
+						<div class="card-header">Refrences</div>
 
 						<div class="card-body text-primary">
 
@@ -237,28 +238,12 @@
 									class="form-control" name="refValue3" id="field_refValue3"
 									formControlName="refValue3" />
 							</div>
-							
-							<div class="form-group">
-								<label class="form-control-label"
-									jhiTranslate="jiotmsappApp.invoice.remarks"
-									for="field_remarks">Remarks</label> <input type="text"
-									class="form-control" name="remarks" id="field_remarks"
-									formControlName="remarks" />
-							</div>
-
-							<div class="form-group">
-								<label class="form-control-label"
-									jhiTranslate="jiotmsappApp.invoice.payterm"
-									for="field_payterm">Payterm</label> <input type="text"
-									class="form-control" name="payterm" id="field_payterm"
-									formControlName="payterm" />
-							</div>
 
 						</div>
 					</div>
-					<div *ngIf="editForm.get(['status'])!.value === 'PAID' " class="col-sm-6 card ">
+					<div class="col-sm-6 card ">
 
-						<div class="card-header">Payment Info</div>
+						<div class="card-header">Featured</div>
 						<div class="card-body text-primary">
 
 							<div class="form-group">
@@ -337,7 +322,21 @@
 									formControlName="invoicePdfContentType" />
 							</div>
 
-							
+							<div class="form-group">
+								<label class="form-control-label"
+									jhiTranslate="jiotmsappApp.invoice.remarks"
+									for="field_remarks">Remarks</label> <input type="text"
+									class="form-control" name="remarks" id="field_remarks"
+									formControlName="remarks" />
+							</div>
+
+							<div class="form-group">
+								<label class="form-control-label"
+									jhiTranslate="jiotmsappApp.invoice.payterm"
+									for="field_payterm">Payterm</label> <input type="text"
+									class="form-control" name="payterm" id="field_payterm"
+									formControlName="payterm" />
+							</div>
 
 						</div>
 
@@ -365,7 +364,7 @@
 
 			</div> -->
 
-		<!-- 	<div class="form-group">
+			<div class="form-group">
 				<label class="form-control-label"
 					jhiTranslate="jiotmsappApp.invoice.discount"
 					for="field_discount">Discount</label> <input type="number"
@@ -388,7 +387,7 @@
 					for="field_advance">Advance</label> <input type="number"
 					class="form-control" name="advance" id="field_advance"
 					formControlName="advance" />
-			</div> -->
+			</div>
 
 
 			<div class="form-group" style="width: 100%">
@@ -408,13 +407,13 @@
 
 							<td (click)="deleteRow(j)"><fa-icon icon="trash-alt"></fa-icon></td>
 							<td class="col-sm-2">
-							<input required="required" class="form-control"  (change)="calculateTotal()"
+							<input  class="form-control"  (change)="calculateTotal()"
 								[(ngModel)]="dynamicArray[j].itemName"
 								[ngModelOptions]="{standalone: true}" type="input"
 								list="productitems" temp=""
 								onmouseover="this.temp=this.value;this.value='';"
 								onmouseout="this.value=this.temp;"
-								(change)="onSelectChange(dynamicArray[j]?.itemName||'',j)" /> <datalist
+								(change)="onSelectChange(dynamicArray[j]?.itemName,j)" /> <datalist
 									id="productitems">
 									<select>
 										<option *ngFor="let c of productitems" [value]="c.itemName"></option>
@@ -424,21 +423,21 @@
 								
 								
 								
-							<td  class="col-sm-4"><textarea required="required" class="form-control"
+							<td  class="col-sm-4"><textarea class="form-control"
 									cols="100" rows="2" [ngModelOptions]="{standalone: true}"
 									[(ngModel)]="dynamicArray[j].description"> </textarea></td>
 									
 									
 									
 
-							<td   class="col-sm-2"> <input type="number" min="1" required="required"
+							<td   class="col-sm-2"> <input type="number" min="1"
 							  class="form-control"	[ngModelOptions]="{standalone: true}"
 								[(ngModel)]="dynamicArray[j].price" (change)="calculateTotal()"
 								type="number" />   </td>
 							
 							
-						<td   class="col-sm-1"><input [ngModelOptions]="{standalone: true}" 
-							class="form-control"	[(ngModel)]="dynamicArray[j].qty"  min="1"
+						<td   class="col-sm-1"><input [ngModelOptions]="{standalone: true}"
+							class="form-control"	[(ngModel)]="dynamicArray[j].qty" min="1"
 								(change)="calculateTotal()" type="number" /></td>
 								
 								
@@ -462,47 +461,22 @@
 
 
 			<div class="card float-right">
-			
-			
-			
 				<div class="card-header">Invoice Summary</div>
-  <table >
-			<!--  <tr> 
-			  <td>  <label class="form-control-label"
-					jhiTranslate="jiotmsappApp.invoice.advance"
-					for="field_advance">Advance</label>    <td>
-			  <td> <div class="form-group">
-				 <input type="number"
-					class="form-control" name="advance" id="field_advance" [(ngModel)]="grantTotal"
-							[ngModelOptions]="{standalone: true}"
-					formControlName="advance" /> 
-			</div>      </td>
-			 
-			 </tr>		
-			  -->
-			
-			 
-			  <tr> 
-			  <td>  Invoice Total <td>
-			  <td> 	<div class="form-group">
-						<input
+
+				<div class="card-body">
+
+
+					<div class="form-group">
+						<label class="form-control-label"
+							jhiTranslate="jiotmsappApp.invoice.invoiceTotal"
+							for="field_invoiceTotal">Invoice Total</label> <input
 							type="number" class="form-control" name="invoiceTotal"
 							id="field_invoiceTotal" [(ngModel)]="grantTotal"
 							[ngModelOptions]="{standalone: true}" disabled="disabled"
-							 />
+							draggable="true" />
 
-					</div>       </td>
-			 
-			 </tr>	
-			 
-			
-			</table>
-			
-
-
-
-
-			
+					</div>
+				</div>
 			</div>
 
 
@@ -520,13 +494,13 @@
 					<fa-icon icon="save"></fa-icon>
 					&nbsp;<span jhiTranslate="entity.action.save">Save</span>
 				</button>
-				
-				<!-- <button type="button" id="save-entity"
+				<!-- 
+				<button type="button" id="save-entity"
 					[disabled]="editForm.invalid || isSaving" class="btn btn-danger">
 					<fa-icon icon="email"></fa-icon>
-					&nbsp;<span >Generate and Send Invoice</span> 
+					&nbsp;<span >Generate and Send Invoice</span>
 				</button>
-			
+				
 				    <div class="form-group">
                     <label class="form-control-label" jhiTranslate="jiotmsappApp.invoice.notification" for="field_notification">Notification</label>
                     <select class="form-control" id="field_notification" name="notification" formControlName="notification">

@@ -38,13 +38,6 @@
       "otherEntityRelationshipName": "transactionsRecord",
       "relationshipName": "customer",
       "otherEntityField": "company"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "accounts",
-      "otherEntityRelationshipName": "transactionsRecord",
-      "relationshipName": "account",
-      "otherEntityField": "id"
     }
   ],
   "changelogDate": "20200526064902",

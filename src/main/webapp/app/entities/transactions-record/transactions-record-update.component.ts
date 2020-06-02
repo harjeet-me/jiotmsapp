@@ -11,10 +11,6 @@ import { ITransactionsRecord, TransactionsRecord } from 'app/shared/model/transa
 import { TransactionsRecordService } from './transactions-record.service';
 import { ICustomer } from 'app/shared/model/customer.model';
 import { CustomerService } from 'app/entities/customer/customer.service';
-import { IAccounts } from 'app/shared/model/accounts.model';
-import { AccountsService } from 'app/entities/accounts/accounts.service';
-
-type SelectableEntity = ICustomer | IAccounts;
 
 @Component({
   selector: 'jhi-transactions-record-update',
@@ -23,7 +19,6 @@ type SelectableEntity = ICustomer | IAccounts;
 export class TransactionsRecordUpdateComponent implements OnInit {
   isSaving = false;
   customers: ICustomer[] = [];
-  accounts: IAccounts[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -35,13 +30,11 @@ export class TransactionsRecordUpdateComponent implements OnInit {
     updatedOn: [],
     updatedBy: [],
     customer: [],
-    account: [],
   });
 
   constructor(
     protected transactionsRecordService: TransactionsRecordService,
     protected customerService: CustomerService,
-    protected accountsService: AccountsService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -57,8 +50,6 @@ export class TransactionsRecordUpdateComponent implements OnInit {
       this.updateForm(transactionsRecord);
 
       this.customerService.query().subscribe((res: HttpResponse<ICustomer[]>) => (this.customers = res.body || []));
-
-      this.accountsService.query().subscribe((res: HttpResponse<IAccounts[]>) => (this.accounts = res.body || []));
     });
   }
 
@@ -73,7 +64,6 @@ export class TransactionsRecordUpdateComponent implements OnInit {
       updatedOn: transactionsRecord.updatedOn ? transactionsRecord.updatedOn.format(DATE_TIME_FORMAT) : null,
       updatedBy: transactionsRecord.updatedBy,
       customer: transactionsRecord.customer,
-      account: transactionsRecord.account,
     });
   }
 
@@ -103,7 +93,6 @@ export class TransactionsRecordUpdateComponent implements OnInit {
       updatedOn: this.editForm.get(['updatedOn'])!.value ? moment(this.editForm.get(['updatedOn'])!.value, DATE_TIME_FORMAT) : undefined,
       updatedBy: this.editForm.get(['updatedBy'])!.value,
       customer: this.editForm.get(['customer'])!.value,
-      account: this.editForm.get(['account'])!.value,
     };
   }
 
@@ -123,7 +112,7 @@ export class TransactionsRecordUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: SelectableEntity): any {
+  trackById(index: number, item: ICustomer): any {
     return item.id;
   }
 }

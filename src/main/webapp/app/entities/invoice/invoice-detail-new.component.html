@@ -1,11 +1,27 @@
 <div class="row justify-content-center">
     <div class="col-8">
+    
+    
+    
         <div *ngIf="invoice">
             <h2><span jhiTranslate="jiotmsappApp.invoice.detail.title">Invoice</span> {{ invoice.id }}</h2>
 
             <hr>
 
             <jhi-alert-error></jhi-alert-error>
+            
+            
+              
+				<div class="row">
+					<div class=" card col-sm-6">
+						<div class="card-body text-primary">
+							<h5 class="card-title">Customer Info</h5>
+							
+							
+						
+							
+							
+							
 
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="jiotmsappApp.invoice.orderNo">Order No</span></dt>
@@ -131,12 +147,6 @@
                 <dd>
                     <span>{{ invoice.updatedBy }}</span>
                 </dd>
-                <dt><span jhiTranslate="jiotmsappApp.invoice.notification">Notification</span></dt>
-                <dd>
-                    <div *ngIf="invoice.notification">
-                        <a [routerLink]="['/email', invoice.notification?.id, 'view']">{{ invoice.notification?.id }}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="jiotmsappApp.invoice.trip">Trip</span></dt>
                 <dd>
                     <div *ngIf="invoice.trip">
@@ -151,6 +161,20 @@
                 </dd>
             </dl>
 
+
+
+          	
+							</div>
+							
+							</div>  
+							
+							
+							
+							
+							
+							</div>
+							
+							
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">

@@ -1,27 +1,19 @@
 package com.tms.v1.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
+import com.tms.v1.domain.enumeration.CURRENCY;
+import com.tms.v1.domain.enumeration.CountryEnum;
+import com.tms.v1.domain.enumeration.Designation;
+import com.tms.v1.domain.enumeration.PreffredContactType;
+import com.tms.v1.domain.enumeration.ToggleStatus;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.tms.v1.domain.enumeration.Designation;
-
-import com.tms.v1.domain.enumeration.PreffredContactType;
-
-import com.tms.v1.domain.enumeration.CountryEnum;
-
-import com.tms.v1.domain.enumeration.ToggleStatus;
-
-import com.tms.v1.domain.enumeration.CURRENCY;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Customer.
@@ -30,7 +22,6 @@ import com.tms.v1.domain.enumeration.CURRENCY;
 @Table(name = "customer")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Customer implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -184,14 +175,12 @@ public class Customer implements Serializable {
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(name = "customer_charge",
-               joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "charge_id", referencedColumnName = "id"))
+    @JoinTable(
+        name = "customer_charge",
+        joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "charge_id", referencedColumnName = "id")
+    )
     private Set<ProductItem> charges = new HashSet<>();
-
-    @OneToOne(mappedBy = "customer")
-    @JsonIgnore
-    private Accounts accounts;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -871,18 +860,6 @@ public class Customer implements Serializable {
         this.charges = productItems;
     }
 
-    public Accounts getAccounts() {
-        return accounts;
-    }
-
-    public Customer accounts(Accounts accounts) {
-        this.accounts = accounts;
-        return this;
-    }
-
-    public void setAccounts(Accounts accounts) {
-        this.accounts = accounts;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

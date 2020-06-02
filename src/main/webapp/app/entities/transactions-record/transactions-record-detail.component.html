@@ -42,12 +42,6 @@
                         <a [routerLink]="['/customer', transactionsRecord.customer?.id, 'view']">{{ transactionsRecord.customer?.company }}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="jiotmsappApp.transactionsRecord.account">Account</span></dt>
-                <dd>
-                    <div *ngIf="transactionsRecord.account">
-                        <a [routerLink]="['/accounts', transactionsRecord.account?.id, 'view']">{{ transactionsRecord.account?.id }}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

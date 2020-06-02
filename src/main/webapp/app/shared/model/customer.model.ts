@@ -6,7 +6,6 @@ import { IEmail } from 'app/shared/model/email.model';
 import { IContact } from 'app/shared/model/contact.model';
 import { ITransactionsRecord } from 'app/shared/model/transactions-record.model';
 import { IProductItem } from 'app/shared/model/product-item.model';
-import { IAccounts } from 'app/shared/model/accounts.model';
 import { Designation } from 'app/shared/model/enumerations/designation.model';
 import { PreffredContactType } from 'app/shared/model/enumerations/preffred-contact-type.model';
 import { CountryEnum } from 'app/shared/model/enumerations/country-enum.model';
@@ -60,7 +59,6 @@ export interface ICustomer {
   morecontacts?: IContact[];
   transactionsRecords?: ITransactionsRecord[];
   charges?: IProductItem[];
-  accounts?: IAccounts;
 }
 
 export class Customer implements ICustomer {
@@ -110,7 +108,6 @@ export class Customer implements ICustomer {
     public emails?: IEmail[],
     public morecontacts?: IContact[],
     public transactionsRecords?: ITransactionsRecord[],
-    public charges?: IProductItem[],
-    public accounts?: IAccounts
+    public charges?: IProductItem[]
   ) {}
 }

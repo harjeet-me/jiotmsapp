@@ -1,17 +1,16 @@
 package com.tms.v1.service;
 
 import com.tms.v1.domain.Invoice;
-
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.Optional;
 
 /**
  * Service Interface for managing {@link Invoice}.
  */
 public interface InvoiceService {
-
     /**
      * Save a invoice.
      *
@@ -28,7 +27,6 @@ public interface InvoiceService {
      */
     Page<Invoice> findAll(Pageable pageable);
 
-
     /**
      * Get the "id" invoice.
      *
@@ -43,4 +41,10 @@ public interface InvoiceService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<Invoice> findByTrip_Id(Long tripId);
+
+    List<Invoice> findByCustomer_IdAndInvoiceDateBetween(Long customerId, LocalDate invoiceDateStart, LocalDate invoiceDateEnd);
+
+    Optional<Long> getMaxInvoiceId();
 }

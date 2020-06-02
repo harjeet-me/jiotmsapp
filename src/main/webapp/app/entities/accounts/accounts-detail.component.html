@@ -40,12 +40,6 @@
                 <dd>
                     <span>{{ accounts.updatedBy }}</span>
                 </dd>
-                <dt><span jhiTranslate="jiotmsappApp.accounts.customer">Customer</span></dt>
-                <dd>
-                    <div *ngIf="accounts.customer">
-                        <a [routerLink]="['/customer', accounts.customer?.id, 'view']">{{ accounts.customer?.company }}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

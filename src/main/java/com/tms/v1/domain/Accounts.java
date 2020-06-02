@@ -1,14 +1,10 @@
 package com.tms.v1.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Accounts.
@@ -17,7 +13,6 @@ import java.util.Set;
 @Table(name = "accounts")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Accounts implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -47,14 +42,6 @@ public class Accounts implements Serializable {
 
     @Column(name = "updated_by")
     private String updatedBy;
-
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Customer customer;
-
-    @OneToMany(mappedBy = "account")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<TransactionsRecord> transactionsRecords = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -169,43 +156,6 @@ public class Accounts implements Serializable {
         this.updatedBy = updatedBy;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public Accounts customer(Customer customer) {
-        this.customer = customer;
-        return this;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public Set<TransactionsRecord> getTransactionsRecords() {
-        return transactionsRecords;
-    }
-
-    public Accounts transactionsRecords(Set<TransactionsRecord> transactionsRecords) {
-        this.transactionsRecords = transactionsRecords;
-        return this;
-    }
-
-    public Accounts addTransactionsRecord(TransactionsRecord transactionsRecord) {
-        this.transactionsRecords.add(transactionsRecord);
-        transactionsRecord.setAccount(this);
-        return this;
-    }
-
-    public Accounts removeTransactionsRecord(TransactionsRecord transactionsRecord) {
-        this.transactionsRecords.remove(transactionsRecord);
-        transactionsRecord.setAccount(null);
-        return this;
-    }
-
-    public void setTransactionsRecords(Set<TransactionsRecord> transactionsRecords) {
-        this.transactionsRecords = transactionsRecords;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

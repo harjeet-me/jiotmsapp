@@ -1,6 +1,5 @@
 import { Moment } from 'moment';
 import { ICustomer } from 'app/shared/model/customer.model';
-import { IAccounts } from 'app/shared/model/accounts.model';
 import { TransactionType } from 'app/shared/model/enumerations/transaction-type.model';
 
 export interface ITransactionsRecord {
@@ -13,7 +12,6 @@ export interface ITransactionsRecord {
   updatedOn?: Moment;
   updatedBy?: string;
   customer?: ICustomer;
-  account?: IAccounts;
 }
 
 export class TransactionsRecord implements ITransactionsRecord {
@@ -26,7 +24,6 @@ export class TransactionsRecord implements ITransactionsRecord {
     public createdBy?: string,
     public updatedOn?: Moment,
     public updatedBy?: string,
-    public customer?: ICustomer,
-    public account?: IAccounts
+    public customer?: ICustomer
   ) {}
 }

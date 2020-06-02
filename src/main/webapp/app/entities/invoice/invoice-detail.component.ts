@@ -6,7 +6,7 @@ import { IInvoice } from 'app/shared/model/invoice.model';
 
 @Component({
   selector: 'jhi-invoice-detail',
-  templateUrl: './invoice-detail.component.html',
+  templateUrl: './invoice-detail-new.component.html',
 })
 export class InvoiceDetailComponent implements OnInit {
   invoice: IInvoice | null = null;
@@ -21,7 +21,7 @@ export class InvoiceDetailComponent implements OnInit {
     return this.dataUtils.byteSize(base64String);
   }
 
-  openFile(contentType = '', base64String: string): void {
+  openFile(contentType: string, base64String: string): void {
     this.dataUtils.openFile(contentType, base64String);
   }
 

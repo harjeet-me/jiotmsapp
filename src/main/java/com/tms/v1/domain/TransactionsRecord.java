@@ -1,15 +1,12 @@
 package com.tms.v1.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
+import com.tms.v1.domain.enumeration.TransactionType;
 import java.io.Serializable;
 import java.time.Instant;
-
-import com.tms.v1.domain.enumeration.TransactionType;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A TransactionsRecord.
@@ -18,7 +15,6 @@ import com.tms.v1.domain.enumeration.TransactionType;
 @Table(name = "transactions_record")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class TransactionsRecord implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -50,10 +46,6 @@ public class TransactionsRecord implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = "transactionsRecords", allowSetters = true)
     private Customer customer;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = "transactionsRecords", allowSetters = true)
-    private Accounts account;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -168,18 +160,6 @@ public class TransactionsRecord implements Serializable {
         this.customer = customer;
     }
 
-    public Accounts getAccount() {
-        return account;
-    }
-
-    public TransactionsRecord account(Accounts accounts) {
-        this.account = accounts;
-        return this;
-    }
-
-    public void setAccount(Accounts accounts) {
-        this.account = accounts;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

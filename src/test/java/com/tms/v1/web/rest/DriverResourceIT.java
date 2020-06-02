@@ -1,10 +1,22 @@
 package com.tms.v1.web.rest;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import com.tms.v1.JiotmsappApp;
 import com.tms.v1.domain.Driver;
+import com.tms.v1.domain.enumeration.ToggleStatus;
 import com.tms.v1.repository.DriverRepository;
 import com.tms.v1.service.DriverService;
-
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +27,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
-import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import com.tms.v1.domain.enumeration.ToggleStatus;
 /**
  * Integration tests for the {@link DriverResource} REST controller.
  */
@@ -36,7 +35,6 @@ import com.tms.v1.domain.enumeration.ToggleStatus;
 @AutoConfigureMockMvc
 @WithMockUser
 public class DriverResourceIT {
-
     private static final String DEFAULT_COMPANY = "AAAAAAAAAA";
     private static final String UPDATED_COMPANY = "BBBBBBBBBB";
 
@@ -52,8 +50,8 @@ public class DriverResourceIT {
     private static final Long DEFAULT_PHONE_NUMBER = 1L;
     private static final Long UPDATED_PHONE_NUMBER = 2L;
 
-    private static final Long DEFAULT_LICENCE_NUMBER = 1L;
-    private static final Long UPDATED_LICENCE_NUMBER = 2L;
+    private static final String DEFAULT_LICENCE_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_LICENCE_NUMBER = "BBBBBBBBBB";
 
     private static final LocalDate DEFAULT_DOB = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DOB = LocalDate.now(ZoneId.systemDefault());
@@ -142,6 +140,7 @@ public class DriverResourceIT {
             .updatedBy(DEFAULT_UPDATED_BY);
         return driver;
     }
+
     /**
      * Create an updated entity for this test.
      *
@@ -184,9 +183,10 @@ public class DriverResourceIT {
     public void createDriver() throws Exception {
         int databaseSizeBeforeCreate = driverRepository.findAll().size();
         // Create the Driver
-        restDriverMockMvc.perform(post("/api/drivers").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(driver)))
+        restDriverMockMvc
+            .perform(
+                post("/api/drivers").with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(driver))
+            )
             .andExpect(status().isCreated());
 
         // Validate the Driver in the database
@@ -225,16 +225,16 @@ public class DriverResourceIT {
         driver.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
-        restDriverMockMvc.perform(post("/api/drivers").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(driver)))
+        restDriverMockMvc
+            .perform(
+                post("/api/drivers").with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(driver))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the Driver in the database
         List<Driver> driverList = driverRepository.findAll();
         assertThat(driverList).hasSize(databaseSizeBeforeCreate);
     }
-
 
     @Test
     @Transactional
@@ -243,7 +243,8 @@ public class DriverResourceIT {
         driverRepository.saveAndFlush(driver);
 
         // Get all the driverList
-        restDriverMockMvc.perform(get("/api/drivers?sort=id,desc"))
+        restDriverMockMvc
+            .perform(get("/api/drivers?sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(driver.getId().intValue())))
@@ -252,7 +253,7 @@ public class DriverResourceIT {
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
             .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER.intValue())))
-            .andExpect(jsonPath("$.[*].licenceNumber").value(hasItem(DEFAULT_LICENCE_NUMBER.intValue())))
+            .andExpect(jsonPath("$.[*].licenceNumber").value(hasItem(DEFAULT_LICENCE_NUMBER)))
             .andExpect(jsonPath("$.[*].dob").value(hasItem(DEFAULT_DOB.toString())))
             .andExpect(jsonPath("$.[*].companyJoinedOn").value(hasItem(DEFAULT_COMPANY_JOINED_ON.toString())))
             .andExpect(jsonPath("$.[*].companyLeftOn").value(hasItem(DEFAULT_COMPANY_LEFT_ON.toString())))
@@ -269,7 +270,7 @@ public class DriverResourceIT {
             .andExpect(jsonPath("$.[*].updatedOn").value(hasItem(DEFAULT_UPDATED_ON.toString())))
             .andExpect(jsonPath("$.[*].updatedBy").value(hasItem(DEFAULT_UPDATED_BY)));
     }
-    
+
     @Test
     @Transactional
     public void getDriver() throws Exception {
@@ -277,7 +278,8 @@ public class DriverResourceIT {
         driverRepository.saveAndFlush(driver);
 
         // Get the driver
-        restDriverMockMvc.perform(get("/api/drivers/{id}", driver.getId()))
+        restDriverMockMvc
+            .perform(get("/api/drivers/{id}", driver.getId()))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(driver.getId().intValue()))
@@ -286,7 +288,7 @@ public class DriverResourceIT {
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
             .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
             .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER.intValue()))
-            .andExpect(jsonPath("$.licenceNumber").value(DEFAULT_LICENCE_NUMBER.intValue()))
+            .andExpect(jsonPath("$.licenceNumber").value(DEFAULT_LICENCE_NUMBER))
             .andExpect(jsonPath("$.dob").value(DEFAULT_DOB.toString()))
             .andExpect(jsonPath("$.companyJoinedOn").value(DEFAULT_COMPANY_JOINED_ON.toString()))
             .andExpect(jsonPath("$.companyLeftOn").value(DEFAULT_COMPANY_LEFT_ON.toString()))
@@ -303,12 +305,12 @@ public class DriverResourceIT {
             .andExpect(jsonPath("$.updatedOn").value(DEFAULT_UPDATED_ON.toString()))
             .andExpect(jsonPath("$.updatedBy").value(DEFAULT_UPDATED_BY));
     }
+
     @Test
     @Transactional
     public void getNonExistingDriver() throws Exception {
         // Get the driver
-        restDriverMockMvc.perform(get("/api/drivers/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
+        restDriverMockMvc.perform(get("/api/drivers/{id}", Long.MAX_VALUE)).andExpect(status().isNotFound());
     }
 
     @Test
@@ -346,9 +348,13 @@ public class DriverResourceIT {
             .updatedOn(UPDATED_UPDATED_ON)
             .updatedBy(UPDATED_UPDATED_BY);
 
-        restDriverMockMvc.perform(put("/api/drivers").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedDriver)))
+        restDriverMockMvc
+            .perform(
+                put("/api/drivers")
+                    .with(csrf())
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(TestUtil.convertObjectToJsonBytes(updatedDriver))
+            )
             .andExpect(status().isOk());
 
         // Validate the Driver in the database
@@ -384,9 +390,10 @@ public class DriverResourceIT {
         int databaseSizeBeforeUpdate = driverRepository.findAll().size();
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
-        restDriverMockMvc.perform(put("/api/drivers").with(csrf())
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(driver)))
+        restDriverMockMvc
+            .perform(
+                put("/api/drivers").with(csrf()).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(driver))
+            )
             .andExpect(status().isBadRequest());
 
         // Validate the Driver in the database
@@ -403,8 +410,8 @@ public class DriverResourceIT {
         int databaseSizeBeforeDelete = driverRepository.findAll().size();
 
         // Delete the driver
-        restDriverMockMvc.perform(delete("/api/drivers/{id}", driver.getId()).with(csrf())
-            .accept(MediaType.APPLICATION_JSON))
+        restDriverMockMvc
+            .perform(delete("/api/drivers/{id}", driver.getId()).with(csrf()).accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

@@ -1,17 +1,14 @@
 package com.tms.v1.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
+import com.tms.v1.domain.enumeration.ToggleStatus;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.tms.v1.domain.enumeration.ToggleStatus;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A Driver.
@@ -20,7 +17,6 @@ import com.tms.v1.domain.enumeration.ToggleStatus;
 @Table(name = "driver")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Driver implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -43,7 +39,7 @@ public class Driver implements Serializable {
     private Long phoneNumber;
 
     @Column(name = "licence_number")
-    private Long licenceNumber;
+    private String licenceNumber;
 
     @Column(name = "dob")
     private LocalDate dob;
@@ -172,16 +168,16 @@ public class Driver implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Long getLicenceNumber() {
+    public String getLicenceNumber() {
         return licenceNumber;
     }
 
-    public Driver licenceNumber(Long licenceNumber) {
+    public Driver licenceNumber(String licenceNumber) {
         this.licenceNumber = licenceNumber;
         return this;
     }
 
-    public void setLicenceNumber(Long licenceNumber) {
+    public void setLicenceNumber(String licenceNumber) {
         this.licenceNumber = licenceNumber;
     }
 
@@ -404,6 +400,7 @@ public class Driver implements Serializable {
     public void setTrips(Set<Trip> trips) {
         this.trips = trips;
     }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -432,7 +429,7 @@ public class Driver implements Serializable {
             ", lastName='" + getLastName() + "'" +
             ", email='" + getEmail() + "'" +
             ", phoneNumber=" + getPhoneNumber() +
-            ", licenceNumber=" + getLicenceNumber() +
+            ", licenceNumber='" + getLicenceNumber() + "'" +
             ", dob='" + getDob() + "'" +
             ", companyJoinedOn='" + getCompanyJoinedOn() + "'" +
             ", companyLeftOn='" + getCompanyLeftOn() + "'" +

@@ -197,13 +197,6 @@
       "relationshipName": "charge",
       "otherEntityField": "itemName",
       "ownerSide": true
-    },
-    {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "accounts",
-      "otherEntityRelationshipName": "customer",
-      "relationshipName": "accounts",
-      "ownerSide": false
     }
   ],
   "changelogDate": "20200526064102",

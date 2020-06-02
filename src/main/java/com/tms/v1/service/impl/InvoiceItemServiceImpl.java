@@ -1,16 +1,15 @@
 package com.tms.v1.service.impl;
 
-import com.tms.v1.service.InvoiceItemService;
 import com.tms.v1.domain.InvoiceItem;
 import com.tms.v1.repository.InvoiceItemRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import com.tms.v1.service.InvoiceItemService;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Service Implementation for managing {@link InvoiceItem}.
@@ -18,7 +17,6 @@ import java.util.Optional;
 @Service
 @Transactional
 public class InvoiceItemServiceImpl implements InvoiceItemService {
-
     private final Logger log = LoggerFactory.getLogger(InvoiceItemServiceImpl.class);
 
     private final InvoiceItemRepository invoiceItemRepository;
@@ -51,7 +49,6 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
         return invoiceItemRepository.findAll();
     }
 
-
     /**
      * Get one invoiceItem by id.
      *
@@ -75,5 +72,10 @@ public class InvoiceItemServiceImpl implements InvoiceItemService {
         log.debug("Request to delete InvoiceItem : {}", id);
 
         invoiceItemRepository.deleteById(id);
+    }
+
+    @Override
+    public Set<InvoiceItem> findByInvoiceId(Long id) {
+        return invoiceItemRepository.findByInvoice_Id(id);
     }
 }

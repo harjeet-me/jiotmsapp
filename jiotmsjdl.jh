@@ -309,7 +309,7 @@ entity Driver {
 	lastName String,
 	email String,
 	phoneNumber Long,
-	licenceNumber Long,
+	licenceNumber String,
     dob LocalDate ,
     companyJoinedOn LocalDate ,
     companyLeftOn LocalDate 
@@ -452,7 +452,7 @@ relationship OneToOne {
      Carrier{operInsurance} to Insurance {Carrier(company)}
      Equipment{insurance} to Insurance 
      Invoice{notification} to Email
-     Accounts {customer (company)} to  Customer{ accounts } 
+    // Accounts {customer (company)} to  Customer{ accounts } 
      InvoiceHistory {previous (status)} to InvoiceHistory
      InvoiceHistory {next (status)} to InvoiceHistory
    
@@ -541,7 +541,7 @@ relationship OneToMany {
     Customer{morecontact (email )  } to  Contact  {customer (company)  } 
     Invoice { invoiceItem  }  to  InvoiceItem { invoice  }
     Customer  to TransactionsRecord {customer (company)}
-    Accounts  to TransactionsRecord {account}
+   //  Accounts  to TransactionsRecord {account}
     Email  to FileSystem 
     Trip  to Container  
    //  Invoice   to  TransactionsRecord { invoice  }

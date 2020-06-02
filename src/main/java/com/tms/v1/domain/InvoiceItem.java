@@ -1,13 +1,11 @@
 package com.tms.v1.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.time.Instant;
+import javax.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 /**
  * A InvoiceItem.
@@ -16,8 +14,18 @@ import java.time.Instant;
 @Table(name = "invoice_item")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class InvoiceItem implements Serializable {
-
     private static final long serialVersionUID = 1L;
+
+    public InvoiceItem() {
+        // TODO Auto-generated constructor stub
+    }
+
+    public InvoiceItem(Long id, String itemName, String description, Double price, double total) {
+        this.itemName = itemName;
+        this.description = description;
+        this.price = price;
+        this.total = total;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -208,6 +216,7 @@ public class InvoiceItem implements Serializable {
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override

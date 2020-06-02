@@ -36,7 +36,16 @@
     "dtoSuffix": "DTO",
     "otherModules": [],
     "blueprints": [],
-    "prettierJava": true
+    "prettierJava": true,
+    "aws": {
+      "applicationName": "jiotmsv-1",
+      "environmentName": "jiotmsapp-env",
+      "bucketName": "jiotmsv-1",
+      "instanceType": "t2.micro",
+      "awsRegion": "us-east-1",
+      "dbName": "jiotmsv1",
+      "dbInstanceClass": "db.t2.micro"
+    }
   },
   "git-provider": "GitHub",
   "git-company": "harjeet-me",

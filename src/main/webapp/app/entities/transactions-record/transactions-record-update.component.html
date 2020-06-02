@@ -67,14 +67,6 @@
                         <option [ngValue]="customerOption.id === editForm.get('customer')!.value?.id ? editForm.get('customer')!.value : customerOption" *ngFor="let customerOption of customers; trackBy: trackById">{{ customerOption.company }}</option>
                     </select>
                 </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="jiotmsappApp.transactionsRecord.account" for="field_account">Account</label>
-                    <select class="form-control" id="field_account" name="account" formControlName="account">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="accountsOption.id === editForm.get('account')!.value?.id ? editForm.get('account')!.value : accountsOption" *ngFor="let accountsOption of accounts; trackBy: trackById">{{ accountsOption.id }}</option>
-                    </select>
-                </div>
             </div>
 
             <div>

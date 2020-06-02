@@ -1,15 +1,14 @@
 package com.tms.v1.service;
 
 import com.tms.v1.domain.InvoiceItem;
-
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service Interface for managing {@link InvoiceItem}.
  */
 public interface InvoiceItemService {
-
     /**
      * Save a invoiceItem.
      *
@@ -25,7 +24,6 @@ public interface InvoiceItemService {
      */
     List<InvoiceItem> findAll();
 
-
     /**
      * Get the "id" invoiceItem.
      *
@@ -40,4 +38,6 @@ public interface InvoiceItemService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Set<InvoiceItem> findByInvoiceId(Long id);
 }

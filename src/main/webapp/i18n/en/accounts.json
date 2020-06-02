@@ -23,9 +23,7 @@
       "createdOn": "Created On",
       "createdBy": "Created By",
       "updatedOn": "Updated On",
-      "updatedBy": "Updated By",
-      "customer": "Customer",
-      "transactionsRecord": "Transactions Record"
+      "updatedBy": "Updated By"
     }
   }
 }

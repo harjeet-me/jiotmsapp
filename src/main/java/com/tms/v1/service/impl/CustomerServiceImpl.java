@@ -1,20 +1,15 @@
 package com.tms.v1.service.impl;
 
-import com.tms.v1.service.CustomerService;
 import com.tms.v1.domain.Customer;
 import com.tms.v1.repository.CustomerRepository;
+import com.tms.v1.service.CustomerService;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing {@link Customer}.
@@ -22,7 +17,6 @@ import java.util.stream.StreamSupport;
 @Service
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
-
     private final Logger log = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
     private final CustomerRepository customerRepository;
@@ -56,7 +50,6 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll(pageable);
     }
 
-
     /**
      * Get all the customers with eager load of many-to-many relationships.
      *
@@ -64,20 +57,6 @@ public class CustomerServiceImpl implements CustomerService {
      */
     public Page<Customer> findAllWithEagerRelationships(Pageable pageable) {
         return customerRepository.findAllWithEagerRelationships(pageable);
-    }
-
-
-    /**
-     *  Get all the customers where Accounts is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true) 
-    public List<Customer> findAllWhereAccountsIsNull() {
-        log.debug("Request to get all customers where Accounts is null");
-        return StreamSupport
-            .stream(customerRepository.findAll().spliterator(), false)
-            .filter(customer -> customer.getAccounts() == null)
-            .collect(Collectors.toList());
     }
 
     /**

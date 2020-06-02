@@ -3,10 +3,13 @@ package com.tms.v1.web.rest;
 import com.tms.v1.domain.Customer;
 import com.tms.v1.service.CustomerService;
 import com.tms.v1.web.rest.errors.BadRequestAlertException;
-
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,15 +17,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.StreamSupport;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  * REST controller for managing {@link com.tms.v1.domain.Customer}.
@@ -30,7 +27,6 @@ import java.util.stream.StreamSupport;
 @RestController
 @RequestMapping("/api")
 public class CustomerResource {
-
     private final Logger log = LoggerFactory.getLogger(CustomerResource.class);
 
     private static final String ENTITY_NAME = "customer";
@@ -58,7 +54,8 @@ public class CustomerResource {
             throw new BadRequestAlertException("A new customer cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Customer result = customerService.save(customer);
-        return ResponseEntity.created(new URI("/api/customers/" + result.getId()))
+        return ResponseEntity
+            .created(new URI("/api/customers/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
@@ -79,7 +76,8 @@ public class CustomerResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         Customer result = customerService.save(customer);
-        return ResponseEntity.ok()
+        return ResponseEntity
+            .ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, customer.getId().toString()))
             .body(result);
     }
@@ -89,16 +87,13 @@ public class CustomerResource {
      *
      * @param pageable the pagination information.
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of customers in body.
      */
     @GetMapping("/customers")
-    public ResponseEntity<List<Customer>> getAllCustomers(Pageable pageable, @RequestParam(required = false) String filter, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
-        if ("accounts-is-null".equals(filter)) {
-            log.debug("REST request to get all Customers where accounts is null");
-            return new ResponseEntity<>(customerService.findAllWhereAccountsIsNull(),
-                    HttpStatus.OK);
-        }
+    public ResponseEntity<List<Customer>> getAllCustomers(
+        Pageable pageable,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+    ) {
         log.debug("REST request to get a page of Customers");
         Page<Customer> page;
         if (eagerload) {
@@ -134,6 +129,9 @@ public class CustomerResource {
         log.debug("REST request to delete Customer : {}", id);
 
         customerService.delete(id);
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString())).build();
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
     }
 }
